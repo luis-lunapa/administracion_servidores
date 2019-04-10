@@ -1,0 +1,11 @@
+version: '3'
+services:
+  servidor:
+    build: './server'
+  
+  cliente1:
+    build: './client'
+  cliente2:
+    build: './client'
+  cliente3:
+    build: './client'
