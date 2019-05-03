@@ -1,8 +1,12 @@
-FROM golang:1.8-alpine
+FROM golang:latest
 WORKDIR /var/www/html
 COPY . /var/www/html
 # EXPOSE 80
-# ENV NAME Server
-CMD ["go", "get", "https://github.com/chzyer/readline"]
-# CMD ["go", "run", "main.go", "echo", "|", "conn", "127.0.0.1:80"]
-CMD ["echo", "conn", "127.0.0.1:80", "|", "go", "run", "main.go"]
+ENV NAME Client
+RUN go get -v github.com/chzyer/readline
+RUN go build -o cliente main.go
+#CMD ["./cliente", "|", "echo", "conn localhost:8081"]
+RUN echo conn servidor:80 | ./cliente
+# CMD ["echo", "conn", "localhost:8081", "|", "go", "run", "main.go"]
+
+# CMD ["go", "run", "main.go", "|", "echo", "conn", "localhost:8081"]

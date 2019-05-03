@@ -2,10 +2,18 @@ version: '3'
 services:
   servidor:
     build: './server'
+    ports:
+      ["80:80"]
+    hostname: 'mygochat'
+    
   
   cliente1:
     build: './client'
-  cliente2:
-    build: './client'
-  cliente3:
-    build: './client'
+    depends_on:
+      ["servidor"]
+    ports:
+      ["8082:80"]
+    links: 
+      - "servidor:mygochat"
+    
+  
